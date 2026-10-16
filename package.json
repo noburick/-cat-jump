@@ -11,7 +11,8 @@
     "test:e2e": "playwright test",
     "build:test": "npm run typecheck && vite build --mode e2e --outDir dist-e2e",
     "check:production": "node scripts/check-production.mjs",
-    "test:e2e:chromium": "playwright test --project=desktop --project=mobile"
+    "test:e2e:chromium": "playwright test --project=desktop --project=mobile",
+    "bot:play": "node --experimental-strip-types bot/run.ts"
   },
   "dependencies": {
     "phaser": "^3.90.0"

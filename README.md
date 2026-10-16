@@ -1,70 +1,106 @@
 # ねこのジャンプ広場
 
-Phaser 3 + TypeScript + Vite の最小2Dジャンプゲーム。外部API・バックエンド・外部フォントへの依存はありません。
+Phaser 3・TypeScript・Viteの2Dジャンプゲーム。外部APIやバックエンドは不要です。
 
-## 開発
+公開中のURL: **https://noburick.github.io/-cat-jump/**
 
-Node.js 22.12以上（推奨22 LTS）とnpmを使用します。
+この作業ブランチの障害物・Bot拡張は未マージ・未公開です。既存ホームページや他のアプリのリポジトリには変更を加えません。
+
+## 開発・通常操作
+
+Node.js 22.12以上（推奨22 LTS）。
 
 ```sh
 npm ci
 npm run dev
-```
-
-表示されたURLを開き、Space・画面のクリック・タップでジャンプします。着地前の追加入力は無視します。画面は16:9の論理座標960×540を保ったまま縮小します。FPSは画面下のチェックボックス、または `?fps=1` で表示できます。
-
-```sh
 npm run typecheck
 npm run build
 npm run preview
-npx playwright install --with-deps chromium webkit
-npm run test:e2e
 ```
 
-Playwrightは本番ビルドを `/cat-jump/` で起動し、PC・Android設定のChromiumとiPhone設定のWebKitで表示、入力、空中での再ジャンプ防止、着地、FPS表示、素材読み込みを検証します。タッチ端末では縦→横→縦の画面サイズ変更後も、Canvasの寸法とタップ位置を確認します。WebKitの自動テストは実機Safariの代替ではないため、公開後の実機確認も必要です。
+Space・広場のクリック・タップでジャンプします。空中での追加入力は無視します。画面構成と既存の操作は維持し、生存時間・回避数と衝突終了時のリトライ表示を追加しています。ゲームオーバー時は「リトライ」、Space、広場のタップで再開できます。FPS表示は画面下のチェックボックス、または `?fps=1` です。
 
-## 構成
+既存の重力1500、ジャンプ初速−560、猫の当たり判定44×58とオフセット(18,16)は維持しています。障害物は従来存在しなかったため、ユーザー承認の通常ゲーム機能として追加しました。AI向けに難易度・当たり判定を変えるモードはありません。
 
-- `src/game/`: Phaserの物理・入力・素材管理
-- `src/ui/`: DOMによる画面UI。ゲームの状態イベントを購読
-- `public/assets/cat.svg`: 差し替え可能な仮の猫素材
-- `src/game/assets.ts`: 素材キーとURL。画像寸法変更時はJumpSceneの当たり判定も調整
-- `tests/`: Playwrightによる本番ビルドの操作テスト
-- `.github/workflows/ci.yml`: push / PRの型チェック・ビルド・操作テスト
-- `.github/workflows/deploy.yml`: 承認後、mainへのPushでPagesに自動公開
+障害物ルールは `src/game/level.ts` に固定しています。
 
-## GitHub Pages
+- 木箱1種類（40×36px）。画面右外から左へ移動。初速300px/秒、10秒ごとに新しく出現する木箱の速度を10px/秒ずつ上げ、上限420px/秒。出現済みの木箱の速度は固定。
+- 最初の出現は物理時間8秒後。その後の間隔は2.8〜3.4秒。速度・間隔・上限等は `src/game/level.ts` の設定値で変更可能。
+- 物理ボディが猫と重なると停止・ゲームオーバー。1ラウンドの衝突は1回。
+- 猫を通過した障害物1個につきスコア1。リトライでスコア・ジャンプ数・経過時間・衝突数をリセット。
+- 設定時にジャンプで確保できる高さ・空中時間と猫／木箱の幅を検証し、着地猶予と高速の後続箱による追いつきを考慮した最小間隔より短い設定は拒否。
+- 本番は通常の乱数。ジャンプやリトライを自動化するコードはゲーム本体にありません。
 
-公開URL: **https://noburick.github.io/-cat-jump/**
-
-初回デプロイは成功し、公開URLでの読み込みと操作を確認済みです。作成された専用リポジトリ名は先頭にハイフンがある `-cat-jump` です。既存サイトのファイルや設定は変更しません。
-
-確認済みの状態（2026-10-16）:
-
-- ローカルは `/workspace/cat-jump` の独立リポジトリ。初回コミットを作成し、接続先を `https://github.com/noburick/-cat-jump.git` に設定し、`main` へPush済み。
-- 専用リポジトリ `noburick/-cat-jump` が空であることを確認してから初回Pushした。
-- 既存 `noburick/noburick.github.io` は `main` の `/` をソースとするlegacy Pages。HTTPS有効、独自ドメインなし。
-- 既存サイトにはホームページと `apps/` 等がある。ゲームは専用リポジトリのプロジェクトPagesとして公開。
-- 既存サイトや他のリポジトリには変更を加えていない。
-
-PagesのSourceはGitHub Actionsに設定済みです。ワークフローは承認済みの `noburick/-cat-jump` の `main` に公開先を固定しています。リポジトリ変数は不要です。`*.github.io` リポジトリへの公開もガードで拒否します。
-
-初回は Actions → Deploy project Pages → Run workflow を `main` で実行します。以後は `main` へのPushで自動公開されます。
-
-## iPhoneでのプレイテスト
-
-Safariで上記URLを開いてください。画面内の広場をタップすると猫がジャンプします。
-
-- 縦画面で表示・ジャンプ・着地を確認。
-- 画面の回転ロックを解除し、横に回転して再度タップ。縦に戻して再確認。
-- 画面が横にはみ出さず、ノッチと操作領域が重ならないことを確認。
-- 広場の外でスクロール可能、広場のタップではページが意図せず動かないことを確認。
-- `?fps=1` をURL末尾に追加するとFPSを確認できる。
-
-## 更新手順
+## 自動テスト
 
 ```sh
-npm ci
+npx playwright install --with-deps chromium webkit
+npm run test:e2e
+npm run test:e2e:chromium
+npx playwright show-report
+npx playwright show-trace test-results/<失敗ケース>/trace.zip
+```
+
+PC Chromium、Android設定のChromium、iPhone設定のWebKitで実行します。描画資源の競合による入力タイミングのばらつきを減らすため1ワーカーで直列実行します。既存の起動・ジャンプ・着地・空中追加入力防止・10回連続操作・画面回転・FPS検証を維持し、衝突・実際のリトライ・固定seedの再現を追加しています。連続操作の待機は実際の着地をフレームごとに観測します。テストを通すために障害物を消したり速度を変えたりしません。
+
+通常本番ビルドは4174番・`dist/`、E2E専用ビルドは4173番・`dist-e2e/` で別々に起動します。`dist-e2e/` は公開禁止です。本番ブラウザでもAPI不在・手動ジャンプ・衝突・手動リトライを検証します。実機Safariの最終確認は公開後に行ってください。
+
+## 読み取り専用テストAPIとseed
+
+開発サーバーまたは `npm run build:test` のときだけ利用できます。
+
+```js
+window.__CAT_JUMP_TEST__.snapshot()
+// state, cat:{x,y,velocityX,velocityY,width,height}, grounded, jumping,
+// jumps, gravityY, elapsedMs, nextObstacle:{sequence,distance,width,height,velocityX},
+// collisions, score, gameOver, seed, lastJumpAtMs, capabilities
+```
+
+凍結したスナップショットだけを返し、入力・リセット・座標設定機能は持ちません。猫と障害物は実際のPhaser物理ボディから取得します。距離は猫のボディ前端から障害物の手前端までの空白です。
+
+開発・E2Eの `?seed=20261016` は32bit非負整数の固定乱数を使います。同じseedならリトライ後も同じ障害物列になります。固定seedの解析・乱数生成器・状態APIは条件付きimport先の `src/testing/` にだけ実装しています。本番の `?seed=` は効果がありません。通常のゲームシーンは乱数生成関数を受け取るだけで、テスト用クエリやBotを認識しません。
+
+`npm run check:production` は本番成果物を走査し、テストAPI・固定seed生成器・Bot判断コードの漏出を検出します。Pagesは全テストの成功後に通常モードで再ビルドし、漏出検査に通った `dist/` だけを公開します。
+
+## ルールベースBotによる20試行比較
+
+```sh
+VITE_BASE_PATH=/cat-jump/ npm run build:test
+VITE_BASE_PATH=/cat-jump/ npm run preview -- --outDir dist-e2e --host 127.0.0.1 --port 4173
+# 別ターミナル
+npm run bot:play -- --mode obstacles --trials 20 --seed 20261016 --distances 20,220 --horizon-ms 16000 --output reports/bot-obstacles
+```
+
+開発サーバーなら `--url http://127.0.0.1:5173/` を指定します。
+
+- BotはPlaywright側だけで動作し、状態取得→衝突予測→タップを繰り返します。
+- 接近速度から衝突時刻を算出し、`h(t)=v*t-g*t²/2` で障害物と猫が水平に重なる全時間帯を安全な高さで通過できる時間帯の中央を狙ってジャンプします。Playwrightの読み取り専用RAF待機で条件を監視し、入力だけをPlaywrightのタッチAPIから送信します。
+- 比較するのはジャンプ開始距離のみ。ジャンプ速度560・余白6px。入力遅延は計測用ジャンプで一度だけ実測し、全20試行で同じ補正値を使用します。計測用ジャンプ後にページを読み直すので、試行の初期状態や障害物列は変わりません。どの条件でも同一のゲームルール・猫の物理・障害物列を使用します。
+- デフォルトは20試行、開始距離上限20pxと220pxを交互に各10回。成功は物理時間16秒生存。描画負荷による実時間の差とは区別します。
+- ゲームオーバーではPlaywrightが本物の「リトライ」をクリックし、スコア・ジャンプ数・衝突数・seedを確認して次の試行に進みます。生存成功後の独立試行はページを読み直します。
+- ゲーム側が指定seedの適用を確認できなければ比較を中止します。APIがない本番を操作対象にしないでください。
+- 生存したまま時間上限に達した結果は `rightCensored: true`。死亡までの時間や無限生存とは扱いません。
+
+結果は出力先の `results.json` / `results.md`、各試行の `trial-XX.json` / `.png` に保存します。衝突や実行エラー時にはトレースも残します。JSONには各判断の距離・位置・速度・判断理由、スコア、生存物理時間、実経過時間、衝突数、リトライ成否、JS/consoleエラーを保存します。終了コード1は基盤エラーまたは前提不足です。比較のための通常の衝突は測定結果として扱います。
+
+`--mode baseline` は以前の1ジャンプ・着地試行です。[過去の基本20回の結果](docs/bot-baseline/results.md)は障害物攻略の成績ではありません。
+
+改善候補は、入力遅延の実測、複数seed・端末・観測間隔での再検証、障害物幅に応じた開始距離の調整です。単一seedの短時間成績から長時間生存や他の障害物列への汎化を断定しません。
+
+## 失敗分析とCI
+
+- `test-results/`: 最終画像、失敗画像・トレース、`runtime-errors.json`、`game-state.json`、`failure.json`。
+- `reports/results.json`: 機械可読のPlaywright全結果。
+- `playwright-report/`: HTMLレポート。PRのValidateは成功時も解析成果物を保存。
+- Botの出力先: 条件ごとの集計、全判断ログ、画像、失敗トレース。
+
+PRとPushで型チェック・ビルド・操作テストを実行します。デプロイ側も失敗時に解析成果物を保存し、公開を止めます。失敗分析はJSON→画像→トレースの順で確認し、作業ブランチで修正後に再実行してください。
+
+## GitHub Pagesと更新
+
+専用リポジトリは `noburick/-cat-jump`。既存の `noburick/noburick.github.io` のファイルやPages設定は変更しません。公開先は専用リポジトリの `main` に固定し、`*.github.io` リポジトリはガードで拒否します。
+
+```sh
 npm run build
 npm run test:e2e
 git add .
@@ -72,62 +108,10 @@ git commit -m "Update game"
 git push origin main
 ```
 
-`main` へのPushで型チェック・ビルド・Chromium/WebKitテストを実行し、成功後にPagesへ自動公開します。Actionsの成功を待ち、同じURLをSafariで再読み込みしてください。失敗時は公開ジョブを実行せず、直前の公開版を維持します。PRはCI検証のみです。
+`main` へのPushで検証成功後に自動公開。作業ブランチやPRからは公開しません。
 
-任意のサブパス用ビルド:
+任意のサブパスの本番ビルドは `VITE_BASE_PATH=/-cat-jump/ npm run build`。baseは先頭・末尾の `/` が必要です。素材も `import.meta.env.BASE_URL` を参照します。猫素材は `public/assets/cat.svg` で差し替え可能です。
 
-```sh
-VITE_BASE_PATH=/-cat-jump/ npm run build
-```
+## 木箱版のAI実測結果
 
-baseは先頭・末尾に `/` が必要です。素材パスも `import.meta.env.BASE_URL` を参照します。未指定なら `/` です。デプロイワークフローではリポジトリ名から自動設定します。
-
-## 検証結果（2026-10-16）
-
-- 型チェックとサブパスでの本番ビルド成功。
-- Playwright: 5件成功。タッチ専用テスト1件はPCプロジェクトで意図的にスキップ。
-- ChromiumのPC・Android設定、およびWebKitのiPhone設定で操作成功。
-- Android/WebKitの縦→横→縦リサイズ後の描画寸法・タップ操作成功。
-- WebKitの横画面で検出したCanvas寸法の追従問題はResizeObserverによる再計算で修正。
-- ローカルWebKitは作業用ディレクトリに不足OSライブラリを展開して実行。CIではPlaywrightの `--with-deps` で導入する。
-- GitHub Actionsの[Validate](https://github.com/noburick/-cat-jump/actions/runs/38845263411)で型チェック・ビルド・操作テスト成功。
-- [初回Pagesデプロイ](https://github.com/noburick/-cat-jump/actions/runs/38848731990)成功。公開URLでWebKitのiPhone設定による素材読み込み・タップ・着地・縦横リサイズ操作を確認。
-- 実機iPhone Safariでのプレイテストは上記URLを開いて実施してください。
-- 既存ホームページのHTMLのSHA-256は作業前後で一致。
-- Phaserを含むJSはgzip約334 KB。Viteのチャンクサイズ警告は残るがビルドエラーはない。
-
-## Codex用の自動プレイテスト
-
-```sh
-npm ci
-npx playwright install --with-deps chromium webkit
-npm run test:e2e                 # PC Chromium / Android Chromium / iPhone WebKit
-npm run test:e2e:chromium        # Chromiumのみ
-npx playwright show-report      # HTMLレポートを開く
-npx playwright show-trace test-results/<失敗ケース>/trace.zip
-```
-
-テストは通常の本番ビルド（4174番）とE2E専用ビルド（4173番）を別々に起動します。出力先はそれぞれ `dist/` と `dist-e2e/`。`build:test` の出力は公開しないでください。Pagesワークフローはテスト後に通常モードで再ビルドし、API不在を確認した `dist/` だけを公開します。
-
-開発サーバー、または `npm run build:test` のときだけ次を使用できます。
-
-```js
-window.__CAT_JUMP_TEST__.snapshot()
-// { state, cat: { x, y, velocityY }, grounded, jumping, jumps,
-//   score: null, gameOver: null, capabilities: { obstacles: false, retry: false, score: false } }
-```
-
-APIは入力やリセット機能を持たず、凍結したスナップショットのみ返します。座標・速度は実際のPhaser物理オブジェクトから読み、ジャンプ回数は既存の状態通知から取得します。ゲームの入力・物理・UIロジックは変更していません。`state` はloading / playingです。現行仕様には障害物、ゲームオーバー、リトライ、スコアがないため、該当値はnull、衝突・リトライのテストは理由付きスキップです。ジャンプ回数をスコアとして偽装しません。ランダム要素はなく、固定座標・既存の重力設定をそのまま使用します。
-
-基本テストは座標が上昇してから元の高さに着地すること、空中での再ジャンプ防止、10回連続ジャンプ、タップ操作、縦横リサイズ、FPS表示を確認します。本番API不在はブラウザと `npm run check:production` の成果物走査で検証します。
-
-解析用の出力:
-
-- `test-results/`: 各テストの最終スクリーンショット `final.png`。失敗時はPlaywrightの追加スクリーンショットと `trace.zip`。
-- 各テストの添付JSON: `runtime-errors.json`（console.error・JavaScript例外・HTTP/通信エラー）、`game-state.json`（最終状態）、`failure.json`（失敗内容・スタック・ランタイムエラー）。HTML/JSONレポートから添付を参照できます。
-- `reports/results.json`: 機械可読の全テスト結果。スキップ理由と、fixture終了時のエラーも含む最終判定を確認できます。
-- `playwright-report/`: HTMLレポートと添付。PRのValidateワークフローは成功時も解析成果物をアップロードします。デプロイ側も失敗時に成果物を保存し、公開ジョブを止めます。
-
-失敗分析では `reports/results.json` → 失敗ケースのJSON → スクリーンショット → トレースの順で確認し、作業ブランチで修正して再実行してください。
-
-今回の拡張のローカル再検証: 12件成功、7件スキップ（障害物・リトライ未実装を各3ブラウザで計6件、PC対象外のタッチ専用1件）。型チェック、E2Eビルド、通常ビルド、API漏出チェック成功。意図的な一時テスト失敗で全解析ファイルの生成も検証済みです。
+[JSON](docs/bot-runner/results.json) / [Markdown](docs/bot-runner/results.md)。固定seed・16秒生存・20試行を実施。開始距離上限20pxは0/10成功、220pxは3/10成功。JSエラー0件、衝突17回と実UI経由のリトライ17回を記録しています。入力到達時間のばらつき、長時間・複数seed・実機での検証が改善／追加検証事項です。
