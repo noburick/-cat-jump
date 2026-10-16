@@ -3,11 +3,14 @@ import { gameEvents, type GameState } from '../game/events';
 
 export interface TestSnapshot {
   state: 'loading' | 'playing';
-  cat: Readonly<{ x: number; y: number; velocityY: number }> | null;
+  cat: Readonly<{ x: number; y: number; velocityX: number; velocityY: number; width: number; height: number }> | null;
   grounded: boolean;
   jumping: boolean;
   jumps: number;
   // These game features do not exist yet; null must not imply a passing result.
+  gravityY: number;
+  nextObstacle: null;
+  collisions: null;
   score: null;
   gameOver: null;
   capabilities: Readonly<{ obstacles: false; retry: false; score: false }>;
@@ -32,10 +35,13 @@ export function installTestBridge(game: Phaser.Game): void {
       const grounded = !!body?.blocked.down && body.velocity.y >= 0;
       return Object.freeze({
         state: cat && latest ? 'playing' : 'loading',
-        cat: cat && body ? Object.freeze({ x: cat.x, y: cat.y, velocityY: body.velocity.y }) : null,
+        cat: cat && body ? Object.freeze({ x: cat.x, y: cat.y, velocityX: body.velocity.x, velocityY: body.velocity.y, width: body.width, height: body.height }) : null,
         grounded,
         jumping: !!latest && !grounded,
         jumps: latest?.jumps ?? 0,
+        gravityY: body ? body.gravity.y + body.world.gravity.y : 1500,
+        nextObstacle: null,
+        collisions: null,
         score: null,
         gameOver: null,
         capabilities: Object.freeze({ obstacles: false, retry: false, score: false }),

@@ -1,0 +1,907 @@
+{
+  "mode": "baseline",
+  "requestedTrials": 20,
+  "completedTrials": 20,
+  "seed": 20261016,
+  "seedStatus": "not-applicable-no-randomness",
+  "blocked": null,
+  "successDefinition": "tap makes cat rise and land at original height",
+  "successRate": 1,
+  "obstacleSuccessRate": null,
+  "groups": [
+    {
+      "jumpStartDistance": 90,
+      "applied": false,
+      "trials": 10,
+      "successes": 10
+    },
+    {
+      "jumpStartDistance": 130,
+      "applied": false,
+      "trials": 10,
+      "successes": 10
+    }
+  ],
+  "trials": [
+    {
+      "trial": 1,
+      "parameterIndex": 0,
+      "parameters": {
+        "jumpStartDistance": 90,
+        "jumpSpeed": 560,
+        "clearance": 6,
+        "inputLatencyMs": 40
+      },
+      "seed": 20261016,
+      "mode": "baseline",
+      "result": "baseline-jump-landed",
+      "observedSurvivalMs": 3447.6163599999995,
+      "rightCensored": true,
+      "score": null,
+      "collisions": null,
+      "jumps": 1,
+      "finalObservation": {
+        "state": "playing",
+        "cat": {
+          "x": 300,
+          "y": 404,
+          "velocityX": 0,
+          "velocityY": 0,
+          "width": 44,
+          "height": 58
+        },
+        "grounded": true,
+        "jumping": false,
+        "jumps": 1,
+        "gravityY": 1500,
+        "nextObstacle": null,
+        "collisions": null,
+        "score": null,
+        "gameOver": null,
+        "capabilities": {
+          "obstacles": false,
+          "retry": false,
+          "score": false
+        }
+      },
+      "errors": [],
+      "decisions": []
+    },
+    {
+      "trial": 2,
+      "parameterIndex": 1,
+      "parameters": {
+        "jumpStartDistance": 130,
+        "jumpSpeed": 560,
+        "clearance": 6,
+        "inputLatencyMs": 40
+      },
+      "seed": 20261016,
+      "mode": "baseline",
+      "result": "baseline-jump-landed",
+      "observedSurvivalMs": 3447.794952,
+      "rightCensored": true,
+      "score": null,
+      "collisions": null,
+      "jumps": 1,
+      "finalObservation": {
+        "state": "playing",
+        "cat": {
+          "x": 300,
+          "y": 404,
+          "velocityX": 0,
+          "velocityY": 0,
+          "width": 44,
+          "height": 58
+        },
+        "grounded": true,
+        "jumping": false,
+        "jumps": 1,
+        "gravityY": 1500,
+        "nextObstacle": null,
+        "collisions": null,
+        "score": null,
+        "gameOver": null,
+        "capabilities": {
+          "obstacles": false,
+          "retry": false,
+          "score": false
+        }
+      },
+      "errors": [],
+      "decisions": []
+    },
+    {
+      "trial": 3,
+      "parameterIndex": 0,
+      "parameters": {
+        "jumpStartDistance": 90,
+        "jumpSpeed": 560,
+        "clearance": 6,
+        "inputLatencyMs": 40
+      },
+      "seed": 20261016,
+      "mode": "baseline",
+      "result": "baseline-jump-landed",
+      "observedSurvivalMs": 3406.2336910000013,
+      "rightCensored": true,
+      "score": null,
+      "collisions": null,
+      "jumps": 1,
+      "finalObservation": {
+        "state": "playing",
+        "cat": {
+          "x": 300,
+          "y": 404,
+          "velocityX": 0,
+          "velocityY": 0,
+          "width": 44,
+          "height": 58
+        },
+        "grounded": true,
+        "jumping": false,
+        "jumps": 1,
+        "gravityY": 1500,
+        "nextObstacle": null,
+        "collisions": null,
+        "score": null,
+        "gameOver": null,
+        "capabilities": {
+          "obstacles": false,
+          "retry": false,
+          "score": false
+        }
+      },
+      "errors": [],
+      "decisions": []
+    },
+    {
+      "trial": 4,
+      "parameterIndex": 1,
+      "parameters": {
+        "jumpStartDistance": 130,
+        "jumpSpeed": 560,
+        "clearance": 6,
+        "inputLatencyMs": 40
+      },
+      "seed": 20261016,
+      "mode": "baseline",
+      "result": "baseline-jump-landed",
+      "observedSurvivalMs": 3493.561389999999,
+      "rightCensored": true,
+      "score": null,
+      "collisions": null,
+      "jumps": 1,
+      "finalObservation": {
+        "state": "playing",
+        "cat": {
+          "x": 300,
+          "y": 404,
+          "velocityX": 0,
+          "velocityY": 0,
+          "width": 44,
+          "height": 58
+        },
+        "grounded": true,
+        "jumping": false,
+        "jumps": 1,
+        "gravityY": 1500,
+        "nextObstacle": null,
+        "collisions": null,
+        "score": null,
+        "gameOver": null,
+        "capabilities": {
+          "obstacles": false,
+          "retry": false,
+          "score": false
+        }
+      },
+      "errors": [],
+      "decisions": []
+    },
+    {
+      "trial": 5,
+      "parameterIndex": 0,
+      "parameters": {
+        "jumpStartDistance": 90,
+        "jumpSpeed": 560,
+        "clearance": 6,
+        "inputLatencyMs": 40
+      },
+      "seed": 20261016,
+      "mode": "baseline",
+      "result": "baseline-jump-landed",
+      "observedSurvivalMs": 3440.420964000001,
+      "rightCensored": true,
+      "score": null,
+      "collisions": null,
+      "jumps": 1,
+      "finalObservation": {
+        "state": "playing",
+        "cat": {
+          "x": 300,
+          "y": 404,
+          "velocityX": 0,
+          "velocityY": 0,
+          "width": 44,
+          "height": 58
+        },
+        "grounded": true,
+        "jumping": false,
+        "jumps": 1,
+        "gravityY": 1500,
+        "nextObstacle": null,
+        "collisions": null,
+        "score": null,
+        "gameOver": null,
+        "capabilities": {
+          "obstacles": false,
+          "retry": false,
+          "score": false
+        }
+      },
+      "errors": [],
+      "decisions": []
+    },
+    {
+      "trial": 6,
+      "parameterIndex": 1,
+      "parameters": {
+        "jumpStartDistance": 130,
+        "jumpSpeed": 560,
+        "clearance": 6,
+        "inputLatencyMs": 40
+      },
+      "seed": 20261016,
+      "mode": "baseline",
+      "result": "baseline-jump-landed",
+      "observedSurvivalMs": 3454.0969259999983,
+      "rightCensored": true,
+      "score": null,
+      "collisions": null,
+      "jumps": 1,
+      "finalObservation": {
+        "state": "playing",
+        "cat": {
+          "x": 300,
+          "y": 404,
+          "velocityX": 0,
+          "velocityY": 0,
+          "width": 44,
+          "height": 58
+        },
+        "grounded": true,
+        "jumping": false,
+        "jumps": 1,
+        "gravityY": 1500,
+        "nextObstacle": null,
+        "collisions": null,
+        "score": null,
+        "gameOver": null,
+        "capabilities": {
+          "obstacles": false,
+          "retry": false,
+          "score": false
+        }
+      },
+      "errors": [],
+      "decisions": []
+    },
+    {
+      "trial": 7,
+      "parameterIndex": 0,
+      "parameters": {
+        "jumpStartDistance": 90,
+        "jumpSpeed": 560,
+        "clearance": 6,
+        "inputLatencyMs": 40
+      },
+      "seed": 20261016,
+      "mode": "baseline",
+      "result": "baseline-jump-landed",
+      "observedSurvivalMs": 3532.145607999999,
+      "rightCensored": true,
+      "score": null,
+      "collisions": null,
+      "jumps": 1,
+      "finalObservation": {
+        "state": "playing",
+        "cat": {
+          "x": 300,
+          "y": 404,
+          "velocityX": 0,
+          "velocityY": 0,
+          "width": 44,
+          "height": 58
+        },
+        "grounded": true,
+        "jumping": false,
+        "jumps": 1,
+        "gravityY": 1500,
+        "nextObstacle": null,
+        "collisions": null,
+        "score": null,
+        "gameOver": null,
+        "capabilities": {
+          "obstacles": false,
+          "retry": false,
+          "score": false
+        }
+      },
+      "errors": [],
+      "decisions": []
+    },
+    {
+      "trial": 8,
+      "parameterIndex": 1,
+      "parameters": {
+        "jumpStartDistance": 130,
+        "jumpSpeed": 560,
+        "clearance": 6,
+        "inputLatencyMs": 40
+      },
+      "seed": 20261016,
+      "mode": "baseline",
+      "result": "baseline-jump-landed",
+      "observedSurvivalMs": 3433.576992000002,
+      "rightCensored": true,
+      "score": null,
+      "collisions": null,
+      "jumps": 1,
+      "finalObservation": {
+        "state": "playing",
+        "cat": {
+          "x": 300,
+          "y": 404,
+          "velocityX": 0,
+          "velocityY": 0,
+          "width": 44,
+          "height": 58
+        },
+        "grounded": true,
+        "jumping": false,
+        "jumps": 1,
+        "gravityY": 1500,
+        "nextObstacle": null,
+        "collisions": null,
+        "score": null,
+        "gameOver": null,
+        "capabilities": {
+          "obstacles": false,
+          "retry": false,
+          "score": false
+        }
+      },
+      "errors": [],
+      "decisions": []
+    },
+    {
+      "trial": 9,
+      "parameterIndex": 0,
+      "parameters": {
+        "jumpStartDistance": 90,
+        "jumpSpeed": 560,
+        "clearance": 6,
+        "inputLatencyMs": 40
+      },
+      "seed": 20261016,
+      "mode": "baseline",
+      "result": "baseline-jump-landed",
+      "observedSurvivalMs": 3518.612613999998,
+      "rightCensored": true,
+      "score": null,
+      "collisions": null,
+      "jumps": 1,
+      "finalObservation": {
+        "state": "playing",
+        "cat": {
+          "x": 300,
+          "y": 404,
+          "velocityX": 0,
+          "velocityY": 0,
+          "width": 44,
+          "height": 58
+        },
+        "grounded": true,
+        "jumping": false,
+        "jumps": 1,
+        "gravityY": 1500,
+        "nextObstacle": null,
+        "collisions": null,
+        "score": null,
+        "gameOver": null,
+        "capabilities": {
+          "obstacles": false,
+          "retry": false,
+          "score": false
+        }
+      },
+      "errors": [],
+      "decisions": []
+    },
+    {
+      "trial": 10,
+      "parameterIndex": 1,
+      "parameters": {
+        "jumpStartDistance": 130,
+        "jumpSpeed": 560,
+        "clearance": 6,
+        "inputLatencyMs": 40
+      },
+      "seed": 20261016,
+      "mode": "baseline",
+      "result": "baseline-jump-landed",
+      "observedSurvivalMs": 3557.9260300000024,
+      "rightCensored": true,
+      "score": null,
+      "collisions": null,
+      "jumps": 1,
+      "finalObservation": {
+        "state": "playing",
+        "cat": {
+          "x": 300,
+          "y": 404,
+          "velocityX": 0,
+          "velocityY": 0,
+          "width": 44,
+          "height": 58
+        },
+        "grounded": true,
+        "jumping": false,
+        "jumps": 1,
+        "gravityY": 1500,
+        "nextObstacle": null,
+        "collisions": null,
+        "score": null,
+        "gameOver": null,
+        "capabilities": {
+          "obstacles": false,
+          "retry": false,
+          "score": false
+        }
+      },
+      "errors": [],
+      "decisions": []
+    },
+    {
+      "trial": 11,
+      "parameterIndex": 0,
+      "parameters": {
+        "jumpStartDistance": 90,
+        "jumpSpeed": 560,
+        "clearance": 6,
+        "inputLatencyMs": 40
+      },
+      "seed": 20261016,
+      "mode": "baseline",
+      "result": "baseline-jump-landed",
+      "observedSurvivalMs": 3630.8291670000035,
+      "rightCensored": true,
+      "score": null,
+      "collisions": null,
+      "jumps": 1,
+      "finalObservation": {
+        "state": "playing",
+        "cat": {
+          "x": 300,
+          "y": 404,
+          "velocityX": 0,
+          "velocityY": 0,
+          "width": 44,
+          "height": 58
+        },
+        "grounded": true,
+        "jumping": false,
+        "jumps": 1,
+        "gravityY": 1500,
+        "nextObstacle": null,
+        "collisions": null,
+        "score": null,
+        "gameOver": null,
+        "capabilities": {
+          "obstacles": false,
+          "retry": false,
+          "score": false
+        }
+      },
+      "errors": [],
+      "decisions": []
+    },
+    {
+      "trial": 12,
+      "parameterIndex": 1,
+      "parameters": {
+        "jumpStartDistance": 130,
+        "jumpSpeed": 560,
+        "clearance": 6,
+        "inputLatencyMs": 40
+      },
+      "seed": 20261016,
+      "mode": "baseline",
+      "result": "baseline-jump-landed",
+      "observedSurvivalMs": 3440.499689999997,
+      "rightCensored": true,
+      "score": null,
+      "collisions": null,
+      "jumps": 1,
+      "finalObservation": {
+        "state": "playing",
+        "cat": {
+          "x": 300,
+          "y": 404,
+          "velocityX": 0,
+          "velocityY": 0,
+          "width": 44,
+          "height": 58
+        },
+        "grounded": true,
+        "jumping": false,
+        "jumps": 1,
+        "gravityY": 1500,
+        "nextObstacle": null,
+        "collisions": null,
+        "score": null,
+        "gameOver": null,
+        "capabilities": {
+          "obstacles": false,
+          "retry": false,
+          "score": false
+        }
+      },
+      "errors": [],
+      "decisions": []
+    },
+    {
+      "trial": 13,
+      "parameterIndex": 0,
+      "parameters": {
+        "jumpStartDistance": 90,
+        "jumpSpeed": 560,
+        "clearance": 6,
+        "inputLatencyMs": 40
+      },
+      "seed": 20261016,
+      "mode": "baseline",
+      "result": "baseline-jump-landed",
+      "observedSurvivalMs": 3483.332588999998,
+      "rightCensored": true,
+      "score": null,
+      "collisions": null,
+      "jumps": 1,
+      "finalObservation": {
+        "state": "playing",
+        "cat": {
+          "x": 300,
+          "y": 404,
+          "velocityX": 0,
+          "velocityY": 0,
+          "width": 44,
+          "height": 58
+        },
+        "grounded": true,
+        "jumping": false,
+        "jumps": 1,
+        "gravityY": 1500,
+        "nextObstacle": null,
+        "collisions": null,
+        "score": null,
+        "gameOver": null,
+        "capabilities": {
+          "obstacles": false,
+          "retry": false,
+          "score": false
+        }
+      },
+      "errors": [],
+      "decisions": []
+    },
+    {
+      "trial": 14,
+      "parameterIndex": 1,
+      "parameters": {
+        "jumpStartDistance": 130,
+        "jumpSpeed": 560,
+        "clearance": 6,
+        "inputLatencyMs": 40
+      },
+      "seed": 20261016,
+      "mode": "baseline",
+      "result": "baseline-jump-landed",
+      "observedSurvivalMs": 3484.232720999993,
+      "rightCensored": true,
+      "score": null,
+      "collisions": null,
+      "jumps": 1,
+      "finalObservation": {
+        "state": "playing",
+        "cat": {
+          "x": 300,
+          "y": 404,
+          "velocityX": 0,
+          "velocityY": 0,
+          "width": 44,
+          "height": 58
+        },
+        "grounded": true,
+        "jumping": false,
+        "jumps": 1,
+        "gravityY": 1500,
+        "nextObstacle": null,
+        "collisions": null,
+        "score": null,
+        "gameOver": null,
+        "capabilities": {
+          "obstacles": false,
+          "retry": false,
+          "score": false
+        }
+      },
+      "errors": [],
+      "decisions": []
+    },
+    {
+      "trial": 15,
+      "parameterIndex": 0,
+      "parameters": {
+        "jumpStartDistance": 90,
+        "jumpSpeed": 560,
+        "clearance": 6,
+        "inputLatencyMs": 40
+      },
+      "seed": 20261016,
+      "mode": "baseline",
+      "result": "baseline-jump-landed",
+      "observedSurvivalMs": 3530.8747110000113,
+      "rightCensored": true,
+      "score": null,
+      "collisions": null,
+      "jumps": 1,
+      "finalObservation": {
+        "state": "playing",
+        "cat": {
+          "x": 300,
+          "y": 404,
+          "velocityX": 0,
+          "velocityY": 0,
+          "width": 44,
+          "height": 58
+        },
+        "grounded": true,
+        "jumping": false,
+        "jumps": 1,
+        "gravityY": 1500,
+        "nextObstacle": null,
+        "collisions": null,
+        "score": null,
+        "gameOver": null,
+        "capabilities": {
+          "obstacles": false,
+          "retry": false,
+          "score": false
+        }
+      },
+      "errors": [],
+      "decisions": []
+    },
+    {
+      "trial": 16,
+      "parameterIndex": 1,
+      "parameters": {
+        "jumpStartDistance": 130,
+        "jumpSpeed": 560,
+        "clearance": 6,
+        "inputLatencyMs": 40
+      },
+      "seed": 20261016,
+      "mode": "baseline",
+      "result": "baseline-jump-landed",
+      "observedSurvivalMs": 3585.152332999991,
+      "rightCensored": true,
+      "score": null,
+      "collisions": null,
+      "jumps": 1,
+      "finalObservation": {
+        "state": "playing",
+        "cat": {
+          "x": 300,
+          "y": 404,
+          "velocityX": 0,
+          "velocityY": 0,
+          "width": 44,
+          "height": 58
+        },
+        "grounded": true,
+        "jumping": false,
+        "jumps": 1,
+        "gravityY": 1500,
+        "nextObstacle": null,
+        "collisions": null,
+        "score": null,
+        "gameOver": null,
+        "capabilities": {
+          "obstacles": false,
+          "retry": false,
+          "score": false
+        }
+      },
+      "errors": [],
+      "decisions": []
+    },
+    {
+      "trial": 17,
+      "parameterIndex": 0,
+      "parameters": {
+        "jumpStartDistance": 90,
+        "jumpSpeed": 560,
+        "clearance": 6,
+        "inputLatencyMs": 40
+      },
+      "seed": 20261016,
+      "mode": "baseline",
+      "result": "baseline-jump-landed",
+      "observedSurvivalMs": 3404.9535509999987,
+      "rightCensored": true,
+      "score": null,
+      "collisions": null,
+      "jumps": 1,
+      "finalObservation": {
+        "state": "playing",
+        "cat": {
+          "x": 300,
+          "y": 404,
+          "velocityX": 0,
+          "velocityY": 0,
+          "width": 44,
+          "height": 58
+        },
+        "grounded": true,
+        "jumping": false,
+        "jumps": 1,
+        "gravityY": 1500,
+        "nextObstacle": null,
+        "collisions": null,
+        "score": null,
+        "gameOver": null,
+        "capabilities": {
+          "obstacles": false,
+          "retry": false,
+          "score": false
+        }
+      },
+      "errors": [],
+      "decisions": []
+    },
+    {
+      "trial": 18,
+      "parameterIndex": 1,
+      "parameters": {
+        "jumpStartDistance": 130,
+        "jumpSpeed": 560,
+        "clearance": 6,
+        "inputLatencyMs": 40
+      },
+      "seed": 20261016,
+      "mode": "baseline",
+      "result": "baseline-jump-landed",
+      "observedSurvivalMs": 3461.6138800000044,
+      "rightCensored": true,
+      "score": null,
+      "collisions": null,
+      "jumps": 1,
+      "finalObservation": {
+        "state": "playing",
+        "cat": {
+          "x": 300,
+          "y": 404,
+          "velocityX": 0,
+          "velocityY": 0,
+          "width": 44,
+          "height": 58
+        },
+        "grounded": true,
+        "jumping": false,
+        "jumps": 1,
+        "gravityY": 1500,
+        "nextObstacle": null,
+        "collisions": null,
+        "score": null,
+        "gameOver": null,
+        "capabilities": {
+          "obstacles": false,
+          "retry": false,
+          "score": false
+        }
+      },
+      "errors": [],
+      "decisions": []
+    },
+    {
+      "trial": 19,
+      "parameterIndex": 0,
+      "parameters": {
+        "jumpStartDistance": 90,
+        "jumpSpeed": 560,
+        "clearance": 6,
+        "inputLatencyMs": 40
+      },
+      "seed": 20261016,
+      "mode": "baseline",
+      "result": "baseline-jump-landed",
+      "observedSurvivalMs": 3495.3324960000027,
+      "rightCensored": true,
+      "score": null,
+      "collisions": null,
+      "jumps": 1,
+      "finalObservation": {
+        "state": "playing",
+        "cat": {
+          "x": 300,
+          "y": 404,
+          "velocityX": 0,
+          "velocityY": 0,
+          "width": 44,
+          "height": 58
+        },
+        "grounded": true,
+        "jumping": false,
+        "jumps": 1,
+        "gravityY": 1500,
+        "nextObstacle": null,
+        "collisions": null,
+        "score": null,
+        "gameOver": null,
+        "capabilities": {
+          "obstacles": false,
+          "retry": false,
+          "score": false
+        }
+      },
+      "errors": [],
+      "decisions": []
+    },
+    {
+      "trial": 20,
+      "parameterIndex": 1,
+      "parameters": {
+        "jumpStartDistance": 130,
+        "jumpSpeed": 560,
+        "clearance": 6,
+        "inputLatencyMs": 40
+      },
+      "seed": 20261016,
+      "mode": "baseline",
+      "result": "baseline-jump-landed",
+      "observedSurvivalMs": 3539.0181379999995,
+      "rightCensored": true,
+      "score": null,
+      "collisions": null,
+      "jumps": 1,
+      "finalObservation": {
+        "state": "playing",
+        "cat": {
+          "x": 300,
+          "y": 404,
+          "velocityX": 0,
+          "velocityY": 0,
+          "width": 44,
+          "height": 58
+        },
+        "grounded": true,
+        "jumping": false,
+        "jumps": 1,
+        "gravityY": 1500,
+        "nextObstacle": null,
+        "collisions": null,
+        "score": null,
+        "gameOver": null,
+        "capabilities": {
+          "obstacles": false,
+          "retry": false,
+          "score": false
+        }
+      },
+      "errors": [],
+      "decisions": []
+    }
+  ]
+}
