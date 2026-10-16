@@ -35,16 +35,16 @@ Playwrightは本番ビルドを `/cat-jump/` で起動し、PC・Android設定�
 
 ## GitHub Pages
 
-公開予定URL: **https://noburick.github.io/-cat-jump/**
+公開URL: **https://noburick.github.io/-cat-jump/**
 
-コードのPushとPagesの有効化は完了しました。初回デプロイを実行中です。作成された専用リポジトリ名は先頭にハイフンがある `-cat-jump` です。既存サイトのファイルや設定は変更しません。
+初回デプロイは成功し、公開URLでの読み込みと操作を確認済みです。作成された専用リポジトリ名は先頭にハイフンがある `-cat-jump` です。既存サイトのファイルや設定は変更しません。
 
 確認済みの状態（2026-10-16）:
 
 - ローカルは `/workspace/cat-jump` の独立リポジトリ。初回コミットを作成し、接続先を `https://github.com/noburick/-cat-jump.git` に設定し、`main` へPush済み。
 - 専用リポジトリ `noburick/-cat-jump` が空であることを確認してから初回Pushした。
 - 既存 `noburick/noburick.github.io` は `main` の `/` をソースとするlegacy Pages。HTTPS有効、独自ドメインなし。
-- 既存サイトにはホームページと `apps/` 等がある。ルートに `cat-jump` はなく、予定URLは404。
+- 既存サイトにはホームページと `apps/` 等がある。ゲームは専用リポジトリのプロジェクトPagesとして公開。
 - 既存サイトや他のリポジトリには変更を加えていない。
 
 PagesのSourceはGitHub Actionsに設定済みです。ワークフローは承認済みの `noburick/-cat-jump` の `main` に公開先を固定しています。リポジトリ変数は不要です。`*.github.io` リポジトリへの公開もガードで拒否します。
@@ -53,7 +53,7 @@ PagesのSourceはGitHub Actionsに設定済みです。ワークフローは承�
 
 ## iPhoneでのプレイテスト
 
-初回公開後、Safariで上記URLを開いてください。画面内の広場をタップすると猫がジャンプします。
+Safariで上記URLを開いてください。画面内の広場をタップすると猫がジャンプします。
 
 - 縦画面で表示・ジャンプ・着地を確認。
 - 画面の回転ロックを解除し、横に回転して再度タップ。縦に戻して再確認。
@@ -61,7 +61,7 @@ PagesのSourceはGitHub Actionsに設定済みです。ワークフローは承�
 - 広場の外でスクロール可能、広場のタップではページが意図せず動かないことを確認。
 - `?fps=1` をURL末尾に追加するとFPSを確認できる。
 
-## 更新手順（初回公開後）
+## 更新手順
 
 ```sh
 npm ci
@@ -91,6 +91,7 @@ baseは先頭・末尾に `/` が必要です。素材パスも `import.meta.env
 - WebKitの横画面で検出したCanvas寸法の追従問題はResizeObserverによる再計算で修正。
 - ローカルWebKitは作業用ディレクトリに不足OSライブラリを展開して実行。CIではPlaywrightの `--with-deps` で導入する。
 - GitHub Actionsの[Validate](https://github.com/noburick/-cat-jump/actions/runs/38845263411)で型チェック・ビルド・操作テスト成功。
-- 実機iPhone Safariと公開URLの正常表示は初回公開後に確認する。
+- [初回Pagesデプロイ](https://github.com/noburick/-cat-jump/actions/runs/38848731990)成功。公開URLでWebKitのiPhone設定による素材読み込み・タップ・着地・縦横リサイズ操作を確認。
+- 実機iPhone Safariでのプレイテストは上記URLを開いて実施してください。
 - 既存ホームページのHTMLのSHA-256は作業前後で一致。
 - Phaserを含むJSはgzip約334 KB。Viteのチャンクサイズ警告は残るがビルドエラーはない。
