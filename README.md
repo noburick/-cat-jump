@@ -41,7 +41,7 @@ npx playwright show-report
 npx playwright show-trace test-results/<失敗ケース>/trace.zip
 ```
 
-PC Chromium、Android設定のChromium、iPhone設定のWebKitで実行します。既存の起動・ジャンプ・着地・空中追加入力防止・10回連続操作・画面回転・FPS検証を維持し、衝突・実際のリトライ・固定seedの再現を追加しています。連続操作の待機は実際の着地をフレームごとに観測します。テストを通すために障害物を消したり速度を変えたりしません。
+PC Chromium、Android設定のChromium、iPhone設定のWebKitで実行します。描画資源の競合による入力タイミングのばらつきを減らすため1ワーカーで直列実行します。既存の起動・ジャンプ・着地・空中追加入力防止・10回連続操作・画面回転・FPS検証を維持し、衝突・実際のリトライ・固定seedの再現を追加しています。連続操作の待機は実際の着地をフレームごとに観測します。テストを通すために障害物を消したり速度を変えたりしません。
 
 通常本番ビルドは4174番・`dist/`、E2E専用ビルドは4173番・`dist-e2e/` で別々に起動します。`dist-e2e/` は公開禁止です。本番ブラウザでもAPI不在・手動ジャンプ・衝突・手動リトライを検証します。実機Safariの最終確認は公開後に行ってください。
 
@@ -111,3 +111,7 @@ git push origin main
 `main` へのPushで検証成功後に自動公開。作業ブランチやPRからは公開しません。
 
 任意のサブパスの本番ビルドは `VITE_BASE_PATH=/-cat-jump/ npm run build`。baseは先頭・末尾の `/` が必要です。素材も `import.meta.env.BASE_URL` を参照します。猫素材は `public/assets/cat.svg` で差し替え可能です。
+
+## 木箱版のAI実測結果
+
+[JSON](docs/bot-runner/results.json) / [Markdown](docs/bot-runner/results.md)。固定seed・16秒生存・20試行を実施。開始距離上限20pxは0/10成功、220pxは3/10成功。JSエラー0件、衝突17回と実UI経由のリトライ17回を記録しています。入力到達時間のばらつき、長時間・複数seed・実機での検証が改善／追加検証事項です。

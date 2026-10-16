@@ -2,6 +2,8 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
+  // Real-time input/physics cases share rendering resources; keep comparisons serial.
+  workers: 1,
   retries: process.env.CI ? 2 : 0,
   reporter: [['list'], ['html', { open: 'never' }], ['json', { outputFile: 'reports/results.json' }]],
   use: { baseURL: 'http://127.0.0.1:4173/cat-jump/', trace: 'retain-on-failure', screenshot: 'only-on-failure' },
