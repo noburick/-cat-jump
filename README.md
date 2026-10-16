@@ -37,24 +37,22 @@ Playwrightは本番ビルドを `/cat-jump/` で起動し、PC・Android設定�
 
 公開予定URL: **https://noburick.github.io/-cat-jump/**
 
-初回公開を準備しています。作成された専用リポジトリ名は先頭にハイフンがある `-cat-jump` です。既存の `noburick.github.io` リポジトリのファイルや公開設定は変更しません。
+コードのPushは完了しました。Pages設定と公開先変数の変更APIはGitHub連携の権限不足（HTTP 403）で拒否され、初回公開は未完了です。作成された専用リポジトリ名は先頭にハイフンがある `-cat-jump` です。既存の `noburick.github.io` リポジトリのファイルや公開設定は変更しません。
 
 確認済みの状態（2026-10-16）:
 
-- ローカルは `/workspace/cat-jump` の独立リポジトリ。初回コミットを作成し、接続先を `https://github.com/noburick/-cat-jump.git` に設定。まだPushしていない。
-- 専用の空の公開リポジトリ `noburick/-cat-jump` を確認。
+- ローカルは `/workspace/cat-jump` の独立リポジトリ。初回コミットを作成し、接続先を `https://github.com/noburick/-cat-jump.git` に設定し、`main` へPush済み。
+- 専用リポジトリ `noburick/-cat-jump` が空であることを確認してから初回Pushした。
 - 既存 `noburick/noburick.github.io` は `main` の `/` をソースとするlegacy Pages。HTTPS有効、独自ドメインなし。
 - 既存サイトにはホームページと `apps/` 等がある。ルートに `cat-jump` はなく、予定URLは404。
 - 既存サイトや他のリポジトリには変更を加えていない。
 
-承認後の初回設定:
+初回作成・Pushは承認済みで完了。残りの設定（GitHubの画面から実施）:
 
-1. 空の公開リポジトリ `noburick/-cat-jump` を新規作成。コードも公開される。
-2. このプロジェクトだけをそのリポジトリの `main` にPushする。force pushは使わない。
-3. **新規リポジトリ側だけ** Settings → Pages → Source を GitHub Actions に設定する。
-4. 新規リポジトリの Settings → Secrets and variables → Actions → Variables に `PAGES_DEPLOY_REPOSITORY=noburick/-cat-jump` を設定する。
-5. Actions → Deploy project Pages → Run workflow を `main` で実行し初回公開する。
-6. デプロイ結果のURLと実際のページ表示を確認する。既存ホームページも引き続き表示できることを確認する。
+1. **新規リポジトリ側だけ** Settings → Pages → Source を GitHub Actions に設定する。
+2. 新規リポジトリの Settings → Secrets and variables → Actions → Variables に `PAGES_DEPLOY_REPOSITORY=noburick/-cat-jump` を設定する。
+3. Actions → Deploy project Pages → Run workflow を `main` で実行し初回公開する。
+4. デプロイ結果のURLと実際のページ表示を確認する。既存ホームページも引き続き表示できることを確認する。
 
 `PAGES_DEPLOY_REPOSITORY` が実行元と一致しない限りデプロイは実行しません。`*.github.io` リポジトリはガードで拒否します。公開は専用リポジトリのサイト全体を置換するので、既存サイトのリポジトリへこの設定をコピーしないでください。
 
@@ -84,7 +82,7 @@ git push origin main
 任意のサブパス用ビルド:
 
 ```sh
-VITE_BASE_PATH=/cat-jump/ npm run build
+VITE_BASE_PATH=/-cat-jump/ npm run build
 ```
 
 baseは先頭・末尾に `/` が必要です。素材パスも `import.meta.env.BASE_URL` を参照します。未指定なら `/` です。デプロイワークフローではリポジトリ名から自動設定します。
