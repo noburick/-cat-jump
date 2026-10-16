@@ -95,3 +95,39 @@ baseは先頭・末尾に `/` が必要です。素材パスも `import.meta.env
 - 実機iPhone Safariでのプレイテストは上記URLを開いて実施してください。
 - 既存ホームページのHTMLのSHA-256は作業前後で一致。
 - Phaserを含むJSはgzip約334 KB。Viteのチャンクサイズ警告は残るがビルドエラーはない。
+
+## Codex用の自動プレイテスト
+
+```sh
+npm ci
+npx playwright install --with-deps chromium webkit
+npm run test:e2e                 # PC Chromium / Android Chromium / iPhone WebKit
+npm run test:e2e:chromium        # Chromiumのみ
+npx playwright show-report      # HTMLレポートを開く
+npx playwright show-trace test-results/<失敗ケース>/trace.zip
+```
+
+テストは通常の本番ビルド（4174番）とE2E専用ビルド（4173番）を別々に起動します。出力先はそれぞれ `dist/` と `dist-e2e/`。`build:test` の出力は公開しないでください。Pagesワークフローはテスト後に通常モードで再ビルドし、API不在を確認した `dist/` だけを公開します。
+
+開発サーバー、または `npm run build:test` のときだけ次を使用できます。
+
+```js
+window.__CAT_JUMP_TEST__.snapshot()
+// { state, cat: { x, y, velocityY }, grounded, jumping, jumps,
+//   score: null, gameOver: null, capabilities: { obstacles: false, retry: false, score: false } }
+```
+
+APIは入力やリセット機能を持たず、凍結したスナップショットのみ返します。座標・速度は実際のPhaser物理オブジェクトから読み、ジャンプ回数は既存の状態通知から取得します。ゲームの入力・物理・UIロジックは変更していません。`state` はloading / playingです。現行仕様には障害物、ゲームオーバー、リトライ、スコアがないため、該当値はnull、衝突・リトライのテストは理由付きスキップです。ジャンプ回数をスコアとして偽装しません。ランダム要素はなく、固定座標・既存の重力設定をそのまま使用します。
+
+基本テストは座標が上昇してから元の高さに着地すること、空中での再ジャンプ防止、10回連続ジャンプ、タップ操作、縦横リサイズ、FPS表示を確認します。本番API不在はブラウザと `npm run check:production` の成果物走査で検証します。
+
+解析用の出力:
+
+- `test-results/`: 各テストの最終スクリーンショット `final.png`。失敗時はPlaywrightの追加スクリーンショットと `trace.zip`。
+- 各テストの添付JSON: `runtime-errors.json`（console.error・JavaScript例外・HTTP/通信エラー）、`game-state.json`（最終状態）、`failure.json`（失敗内容・スタック・ランタイムエラー）。HTML/JSONレポートから添付を参照できます。
+- `reports/results.json`: 機械可読の全テスト結果。スキップ理由と、fixture終了時のエラーも含む最終判定を確認できます。
+- `playwright-report/`: HTMLレポートと添付。PRのValidateワークフローは成功時も解析成果物をアップロードします。デプロイ側も失敗時に成果物を保存し、公開ジョブを止めます。
+
+失敗分析では `reports/results.json` → 失敗ケースのJSON → スクリーンショット → トレースの順で確認し、作業ブランチで修正して再実行してください。
+
+今回の拡張のローカル再検証: 12件成功、7件スキップ（障害物・リトライ未実装を各3ブラウザで計6件、PC対象外のタッチ専用1件）。型チェック、E2Eビルド、通常ビルド、API漏出チェック成功。意図的な一時テスト失敗で全解析ファイルの生成も検証済みです。

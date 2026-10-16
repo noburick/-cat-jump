@@ -25,3 +25,7 @@ const resizeObserver = new ResizeObserver(() => {
 });
 resizeObserver.observe(parent);
 game.events.once(Phaser.Core.Events.DESTROY, () => resizeObserver.disconnect());
+
+if (import.meta.env.DEV || __GAME_TEST_API__) {
+  void import('./testing/bridge').then(({ installTestBridge }) => installTestBridge(game));
+}

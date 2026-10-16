@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 
 test('loads under a subpath, jumps, rejects midair jumps, and lands', async ({ page, isMobile }) => {
   const errors: string[] = [];

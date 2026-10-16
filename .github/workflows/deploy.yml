@@ -35,10 +35,20 @@ jobs:
           VITE_BASE_PATH: /${{ github.event.repository.name }}/
       - run: npx playwright install --with-deps chromium webkit
       - run: npm run test:e2e
+      - run: npm run check:production
       - name: Rebuild for actual destination after subpath tests
         run: npm run build
         env:
           VITE_BASE_PATH: /${{ github.event.repository.name }}/
+      - run: npm run check:production
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playtest-failure
+          path: |
+            test-results/
+            playwright-report/
+            reports/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
