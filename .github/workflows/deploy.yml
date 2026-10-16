@@ -1,0 +1,57 @@
+name: Deploy project Pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+# Enable only after the destination and initial publication are approved.
+# Repository variable PAGES_DEPLOY_REPOSITORY must equal owner/repository.
+permissions:
+  contents: read
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  build:
+    if: github.ref == 'refs/heads/main' && vars.PAGES_DEPLOY_REPOSITORY == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify destination
+        env:
+          CONFIRM: ${{ vars.PAGES_DEPLOY_REPOSITORY }}
+          REPOSITORY: ${{ github.repository }}
+          REPO_NAME: ${{ github.event.repository.name }}
+        run: |
+          test "$CONFIRM" = "$REPOSITORY" || { echo 'Repository confirmation mismatch'; exit 1; }
+          case "$REPO_NAME" in
+            *.[gG][iI][tT][hH][uU][bB].[iI][oO]) echo 'User/organization Pages repositories are blocked to protect existing sites'; exit 1 ;;
+          esac
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+        env:
+          VITE_BASE_PATH: /${{ github.event.repository.name }}/
+      - run: npx playwright install --with-deps chromium webkit
+      - run: npm run test:e2e
+      - name: Rebuild for actual destination after subpath tests
+        run: npm run build
+        env:
+          VITE_BASE_PATH: /${{ github.event.repository.name }}/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment
