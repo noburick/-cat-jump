@@ -35,24 +35,24 @@ Playwrightは本番ビルドを `/cat-jump/` で起動し、PC・Android設定�
 
 ## GitHub Pages
 
-公開予定URL: **https://noburick.github.io/cat-jump/**
+公開予定URL: **https://noburick.github.io/-cat-jump/**
 
-**未公開です。** 専用の公開リポジトリ `noburick/cat-jump` の新規作成、Pages設定変更、初回デプロイは承認済みですが、GitHub連携が新規リポジトリ作成をHTTP 403（Resource not accessible by integration）で拒否しました。GitHub上で空の公開リポジトリを作成後、Pushと公開設定を進めます。予定URLは公開完了まで使用できません。
+初回公開を準備しています。作成された専用リポジトリ名は先頭にハイフンがある `-cat-jump` です。既存の `noburick.github.io` リポジトリのファイルや公開設定は変更しません。
 
 確認済みの状態（2026-10-16）:
 
-- ローカルは `/workspace/cat-jump` の独立リポジトリ。初回コミットを作成し、接続先を `https://github.com/noburick/cat-jump.git` に設定。まだPushしていない。
-- GitHubのアクセス可能リポジトリ一覧に `cat-jump` はない。
+- ローカルは `/workspace/cat-jump` の独立リポジトリ。初回コミットを作成し、接続先を `https://github.com/noburick/-cat-jump.git` に設定。まだPushしていない。
+- 専用の空の公開リポジトリ `noburick/-cat-jump` を確認。
 - 既存 `noburick/noburick.github.io` は `main` の `/` をソースとするlegacy Pages。HTTPS有効、独自ドメインなし。
 - 既存サイトにはホームページと `apps/` 等がある。ルートに `cat-jump` はなく、予定URLは404。
 - 既存サイトや他のリポジトリには変更を加えていない。
 
 承認後の初回設定:
 
-1. 空の公開リポジトリ `noburick/cat-jump` を新規作成。コードも公開される。
+1. 空の公開リポジトリ `noburick/-cat-jump` を新規作成。コードも公開される。
 2. このプロジェクトだけをそのリポジトリの `main` にPushする。force pushは使わない。
 3. **新規リポジトリ側だけ** Settings → Pages → Source を GitHub Actions に設定する。
-4. 新規リポジトリの Settings → Secrets and variables → Actions → Variables に `PAGES_DEPLOY_REPOSITORY=noburick/cat-jump` を設定する。
+4. 新規リポジトリの Settings → Secrets and variables → Actions → Variables に `PAGES_DEPLOY_REPOSITORY=noburick/-cat-jump` を設定する。
 5. Actions → Deploy project Pages → Run workflow を `main` で実行し初回公開する。
 6. デプロイ結果のURLと実際のページ表示を確認する。既存ホームページも引き続き表示できることを確認する。
 
