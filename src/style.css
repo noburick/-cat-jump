@@ -4,3 +4,5 @@
 .shell{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right));padding-bottom:max(20px,env(safe-area-inset-bottom))}
 #game{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 @media(orientation:landscape) and (max-height:600px){.intro{padding:12px 0}.intro .eyebrow,.intro>p:last-child{display:none}h1{font-size:22px;margin:8px 0}h1 span{display:inline;margin-left:14px}header{padding-bottom:10px}.play-area{max-width:calc((100svh - 180px)*16/9);margin-inline:auto}.game-top,.game-bottom{padding:8px 12px}footer{padding-top:12px}}
+
+.game-top{flex-wrap:wrap;gap:8px}.game-top>span:last-child{font-size:10px}.game-top b{font-size:16px;margin-left:4px}

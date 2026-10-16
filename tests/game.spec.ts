@@ -1,4 +1,5 @@
 import { test, expect } from './fixtures';
+import { waitForDecision } from '../bot/controller';
 
 test('loads under a subpath, jumps, rejects midair jumps, and lands', async ({ page, isMobile }) => {
   const errors: string[] = [];
@@ -32,12 +33,14 @@ test('loads under a subpath, jumps, rejects midair jumps, and lands', async ({ p
 
 test('touch coordinates and canvas size follow portrait / landscape rotation', async ({ page, isMobile }, testInfo) => {
   test.skip(!isMobile, 'Touch devices only');
-  await page.goto('./');
+  test.setTimeout(90000);
+  await page.goto('./?seed=20261016');
   const canvas = page.locator('canvas');
   const status = page.getByTestId('status');
   const count = page.getByTestId('jumps');
   await expect(status).toHaveText('ジャンプできるよ');
   let jumps = 0;
+  const parameters = { jumpStartDistance: 220, jumpSpeed: 560, clearance: 6, inputLatencyMs: 0 };
   for (const viewport of [{ width: 390, height: 664 }, { width: 844, height: 390 }, { width: 390, height: 664 }]) {
     await page.setViewportSize(viewport);
     await expect.poll(async () => {
@@ -50,8 +53,14 @@ test('touch coordinates and canvas size follow portrait / landscape rotation', a
     const box = (await canvas.boundingBox())!;
     expect(box.width).toBeGreaterThan(200);
     expect(Math.abs(box.width / box.height - 16 / 9)).toBeLessThan(0.02);
-    await canvas.tap({ position: { x: box.width * 0.75, y: box.height * 0.5 } });
+    const ready = await waitForDecision(page, parameters, true);
+    expect(ready.state.gameOver).toBe(false);
+    await page.touchscreen.tap(box.x + box.width * 0.75, box.y + box.height * 0.5);
     await expect(count).toHaveText(String(++jumps));
+    if (jumps === 1) {
+      const jumped = await page.evaluate(() => window.__CAT_JUMP_TEST__!.snapshot());
+      parameters.inputLatencyMs = Math.max(0, jumped.lastJumpAtMs! - ready.state.elapsedMs);
+    }
     await expect(status).toHaveText('ジャンプ中');
     await expect(status).toHaveText('ジャンプできるよ');
     await page.screenshot({ path: testInfo.outputPath(`game-${viewport.width}.png`), fullPage: true });

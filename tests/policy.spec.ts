@@ -5,7 +5,7 @@ const parameters = { jumpStartDistance: 130, jumpSpeed: 560, clearance: 6, input
 const state: Observation = {
   cat: { x: 300, y: 400, velocityX: 0, velocityY: 0, width: 44, height: 58 },
   grounded: true, gravityY: 1500,
-  nextObstacle: { distance: 110, width: 32, height: 32, velocityX: -300 },
+  nextObstacle: { distance: 75, width: 32, height: 32, velocityX: -300 },
   gameOver: false, score: 0, collisions: 0, capabilities: { obstacles: true, retry: true, score: true },
 };
 test('prediction jumps only when overlap fits inside safe vertical clearance', () => {

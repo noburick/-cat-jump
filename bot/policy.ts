@@ -22,5 +22,7 @@ export function decideJump(state: Observation, p: Parameters): Decision {
   const overlapEnd = contact + (o.width + state.cat.width) / closingSpeed;
   if (contact < safeStart) return no('too-late', t);
   if (overlapEnd > safeEnd) return no('wait-for-safe-flight-window', t);
+  const centralContact = (safeStart + safeEnd - (o.width + state.cat.width) / closingSpeed) / 2;
+  if (contact > centralContact) return no('wait-for-central-flight-window', t);
   return { jump: true, reason: 'predicted-clearance', timeToCollision: t };
 }
