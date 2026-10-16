@@ -3,8 +3,7 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-# Enable only after the destination and initial publication are approved.
-# Repository variable PAGES_DEPLOY_REPOSITORY must equal owner/repository.
+# Destination and initial publication approved; allow only this dedicated repository.
 permissions:
   contents: read
 concurrency:
@@ -12,12 +11,12 @@ concurrency:
   cancel-in-progress: false
 jobs:
   build:
-    if: github.ref == 'refs/heads/main' && vars.PAGES_DEPLOY_REPOSITORY == github.repository
+    if: github.ref == 'refs/heads/main' && github.repository == 'noburick/-cat-jump'
     runs-on: ubuntu-latest
     steps:
       - name: Verify destination
         env:
-          CONFIRM: ${{ vars.PAGES_DEPLOY_REPOSITORY }}
+          CONFIRM: noburick/-cat-jump
           REPOSITORY: ${{ github.repository }}
           REPO_NAME: ${{ github.event.repository.name }}
         run: |

@@ -37,7 +37,7 @@ Playwrightは本番ビルドを `/cat-jump/` で起動し、PC・Android設定�
 
 公開予定URL: **https://noburick.github.io/-cat-jump/**
 
-コードのPushは完了しました。Pages設定と公開先変数の変更APIはGitHub連携の権限不足（HTTP 403）で拒否され、初回公開は未完了です。作成された専用リポジトリ名は先頭にハイフンがある `-cat-jump` です。既存の `noburick.github.io` リポジトリのファイルや公開設定は変更しません。
+コードのPushとPagesの有効化は完了しました。初回デプロイを実行中です。作成された専用リポジトリ名は先頭にハイフンがある `-cat-jump` です。既存サイトのファイルや設定は変更しません。
 
 確認済みの状態（2026-10-16）:
 
@@ -47,14 +47,9 @@ Playwrightは本番ビルドを `/cat-jump/` で起動し、PC・Android設定�
 - 既存サイトにはホームページと `apps/` 等がある。ルートに `cat-jump` はなく、予定URLは404。
 - 既存サイトや他のリポジトリには変更を加えていない。
 
-初回作成・Pushは承認済みで完了。残りの設定（GitHubの画面から実施）:
+PagesのSourceはGitHub Actionsに設定済みです。ワークフローは承認済みの `noburick/-cat-jump` の `main` に公開先を固定しています。リポジトリ変数は不要です。`*.github.io` リポジトリへの公開もガードで拒否します。
 
-1. **新規リポジトリ側だけ** Settings → Pages → Source を GitHub Actions に設定する。
-2. 新規リポジトリの Settings → Secrets and variables → Actions → Variables に `PAGES_DEPLOY_REPOSITORY=noburick/-cat-jump` を設定する。
-3. Actions → Deploy project Pages → Run workflow を `main` で実行し初回公開する。
-4. デプロイ結果のURLと実際のページ表示を確認する。既存ホームページも引き続き表示できることを確認する。
-
-`PAGES_DEPLOY_REPOSITORY` が実行元と一致しない限りデプロイは実行しません。`*.github.io` リポジトリはガードで拒否します。公開は専用リポジトリのサイト全体を置換するので、既存サイトのリポジトリへこの設定をコピーしないでください。
+初回は Actions → Deploy project Pages → Run workflow を `main` で実行します。以後は `main` へのPushで自動公開されます。
 
 ## iPhoneでのプレイテスト
 
