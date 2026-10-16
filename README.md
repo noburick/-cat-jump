@@ -95,5 +95,7 @@ baseは先頭・末尾に `/` が必要です。素材パスも `import.meta.env
 - Android/WebKitの縦→横→縦リサイズ後の描画寸法・タップ操作成功。
 - WebKitの横画面で検出したCanvas寸法の追従問題はResizeObserverによる再計算で修正。
 - ローカルWebKitは作業用ディレクトリに不足OSライブラリを展開して実行。CIではPlaywrightの `--with-deps` で導入する。
-- 実機iPhone Safari、GitHub Actions上の実行、公開URLの正常表示は初回公開後に確認する。
+- GitHub Actionsの[Validate](https://github.com/noburick/-cat-jump/actions/runs/38845263411)で型チェック・ビルド・操作テスト成功。
+- 実機iPhone Safariと公開URLの正常表示は初回公開後に確認する。
+- 既存ホームページのHTMLのSHA-256は作業前後で一致。
 - Phaserを含むJSはgzip約334 KB。Viteのチャンクサイズ警告は残るがビルドエラーはない。
